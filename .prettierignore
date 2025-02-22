@@ -1,0 +1,6 @@
+package-lock.json
+.eslintrc.js
+jest.config.js.pte
+/ios
+/android
+/node_modules
