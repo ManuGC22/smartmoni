@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Theme, RestyledTheme } from "@/Core/Theme";
+import { SnackbarContext, I18nContext } from "@/Contexts";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,11 +29,15 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={RestyledTheme}>
-        <PaperProvider theme={Theme}>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-          </Stack>
-        </PaperProvider>
+        <I18nContext.Provider>
+          <PaperProvider theme={Theme}>
+            <SnackbarContext.Provider>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+              </Stack>
+            </SnackbarContext.Provider>
+          </PaperProvider>
+        </I18nContext.Provider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
