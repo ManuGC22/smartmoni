@@ -43,14 +43,14 @@ const TextVariants = {
     fontSize: Mixins.s(18),
     fontWeight: "500",
     lineHeight: Mixins.s(27),
-    color: "gray",
+    color: "textPrimary",
   },
   subTitleBold: {
     fontFamily: Typography.bold,
     fontSize: Mixins.s(18),
     fontWeight: "700",
     lineHeight: Mixins.s(27),
-    color: "gray",
+    color: "textPrimary",
   },
   bodyRegular: {
     fontFamily: Typography.regular,
