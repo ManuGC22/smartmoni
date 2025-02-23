@@ -85,6 +85,7 @@ const RestyledTheme = createTheme({
   borderRadii: {
     none: 0,
     textField: 12,
+    card: 12,
   },
   textVariants: TextVariants,
 });
