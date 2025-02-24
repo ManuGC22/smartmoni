@@ -1,3 +1,36 @@
 {
-  "hello": "Hello"
+  "Actions": {
+    "cleanFilter": "Limpiar Filtros",
+    "applyFilter": "Aplicar",
+    "performTransaction": "Realizar Transacción"
+  },
+  "Login": {
+    "message": "La manera mas inteligente de gestionar tus finanzas!"
+  },
+  "General": {
+    "hello": "Hola"
+  },
+  "Accounts": {
+    "totalBalance": "Balance Total",
+    "availableBalance": "Balance Disponible",
+    "accounts": "Cuentas",
+    "checkingAccount": "Cuenta Corriente",
+    "savingsAccount": "Cuenta de Ahorro",
+    "noAccounts": "Actualmente no tienes cuentas asociadas a tu usuario.",
+    "chooseAccount": "Selecciona una cuenta",
+    "searchTransactions": "Buscar Transacciones"
+  },
+  "Transactions": {
+    "transactions": "Transacciones",
+    "transfer": "Transferir",
+    "noTransactions": "Actualmente no tienes transacciones asociadas a esta cuenta.",
+    "transferFrom": "Transferencia desde la cuenta",
+    "transferTo": "Transferencia hacia la cuenta",
+    "transferToOtherAccounts": "Transferir a otras cuentas",
+    "date": "Fecha",
+    "type": "Tipo de Transacción",
+    "amount": "Monto",
+    "from": "Desde",
+    "to": "Hacia"
+  }
 }
