@@ -2,7 +2,7 @@
   "Actions": {
     "cleanFilter": "Limpiar Filtros",
     "applyFilter": "Aplicar",
-    "performTransaction": "Realizar Transacción"
+    "transfer": "Transferir"
   },
   "Login": {
     "message": "La manera mas inteligente de gestionar tus finanzas!"
