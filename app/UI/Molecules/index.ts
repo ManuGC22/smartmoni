@@ -36,6 +36,3 @@ export type { IInfoBlockProps } from "./InfoBlock";
 
 export { default as HeaderContainer } from "./HeaderContainer";
 export type { IHeaderContainerProps } from "./HeaderContainer";
-
-export { default as NavigationBar } from "./NavigationBar";
-export type { INavigationBarProps } from "./NavigationBar";
