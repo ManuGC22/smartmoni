@@ -1,21 +1,14 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Redirect } from "expo-router";
+import { Routes } from "@/Routes";
 
-export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
-  );
-}
+const AppIndex = () => {
+  const isLoggedIn = true;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-});
+  if (isLoggedIn) {
+    return <Redirect href={Routes.MAIN_STACK} />;
+  }
+
+  return <Redirect href={Routes.AUTH_STACK} />;
+};
+
+export default AppIndex;
