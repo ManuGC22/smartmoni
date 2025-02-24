@@ -25,7 +25,7 @@ const OverlayLoader = ({
         : { height: "100%", flex: 1 })}
       justifyContent={"center"}
       alignItems={"center"}
-      bg={"overlay"}
+      bg={"foreground"}
       zIndex={"overlay"}
     >
       <Box justifyContent={"center"} alignItems={"center"} rowGap={"xl"}>

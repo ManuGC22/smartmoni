@@ -1,49 +1,60 @@
+import { useMemo } from "react";
+import { TouchableOpacity } from "react-native";
 import { Box, DisplayText } from "@/UI/Atoms";
-import { IBoxComponentProps } from "@/Types";
 import DisplayCurrency from "../DisplayCurrency";
+import { AccountTypeEnum, IAccount, IBoxComponentProps } from "@/Types";
+import { I18nContext } from "@/Contexts";
+import Card from "../Card";
 
 export interface IAccountCardProps {
-  type: string;
-  number: string;
-  balance: number;
+  account: IAccount;
   containerProps?: IBoxComponentProps;
+  onPress?: () => void;
 }
 
 const AccountCard = ({
-  type,
-  number,
-  balance,
+  account,
   containerProps,
+  onPress,
 }: IAccountCardProps) => {
-  return (
-    <Box
-      width={"100%"}
-      padding={"s"}
-      borderRadius={"card"}
-      borderWidth={0.5}
-      borderBottomWidth={5}
-      borderBottomColor={"primary"}
-      borderColor={"borderLightGray"}
-      backgroundColor={"background"}
-      alignItems={"center"}
-      {...containerProps}
-    >
-      <Box
-        flexDirection={"row"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        gap={"m"}
-      >
-        <DisplayText variant={"subTitleBold"} color={"textAccent"}>
-          {type}
-        </DisplayText>
-        <DisplayText variant={"body"}>{number}</DisplayText>
-      </Box>
+  const { t } = I18nContext.useLocalization();
 
-      <Box marginTop={"s"} alignItems={"center"}>
-        <DisplayCurrency value={balance} variant={"titleSemiBold"} />
-      </Box>
-    </Box>
+  const accountTypeLabels = useMemo(
+    () => ({
+      [AccountTypeEnum.CHECKING]: t("Accounts.checkingAccount"),
+      [AccountTypeEnum.SAVINGS]: t("Accounts.savingsAccount"),
+    }),
+    [t],
+  );
+
+  return (
+    <TouchableOpacity onPress={onPress} disabled={!onPress}>
+      <Card
+        padding={"s"}
+        borderWidth={0.5}
+        borderBottomWidth={5}
+        borderBottomColor={"primary"}
+        borderColor={"borderLightGray"}
+        backgroundColor={"background"}
+        {...containerProps}
+      >
+        <Box
+          flexDirection={"row"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={"m"}
+        >
+          <DisplayText variant={"subTitleBold"} color={"textAccent"}>
+            {accountTypeLabels[account.type]}
+          </DisplayText>
+          <DisplayText variant={"body"}>{account.number}</DisplayText>
+        </Box>
+
+        <Box marginTop={"s"} alignItems={"center"}>
+          <DisplayCurrency value={account.balance} variant={"titleSemiBold"} />
+        </Box>
+      </Card>
+    </TouchableOpacity>
   );
 };
 

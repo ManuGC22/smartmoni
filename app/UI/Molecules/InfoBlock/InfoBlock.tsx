@@ -32,7 +32,7 @@ const InfoBlock = ({
       case "text":
         const { value, ...rest } = props as ITextProps;
         return (
-          <DisplayText {...rest} color="textPrimary">
+          <DisplayText {...rest} color="textSecondary">
             {value}
           </DisplayText>
         );
