@@ -15,6 +15,7 @@ const TitleBar = ({ title, containerProps }: ITitleBarProps) => {
       justifyContent={"center"}
       alignItems={"center"}
       padding={"xs"}
+      backgroundColor={"background"}
       {...containerProps}
     >
       <DisplayText variant={"subTitleBold"} color={"textAccent"}>

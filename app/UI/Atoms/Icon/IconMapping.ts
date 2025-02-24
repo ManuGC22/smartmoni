@@ -1,5 +1,5 @@
 import { StyledUtils } from "@/Utils";
-import { CaretLeft, MagnifyingGlass } from "phosphor-react-native";
+import { CaretLeft, MagnifyingGlass, Faders } from "phosphor-react-native";
 
 import {
   LayoutProps,
@@ -21,6 +21,7 @@ export type TRestyleIconProps = LayoutProps<IRestyledTheme> &
 const IconMapping = {
   Back: StyledUtils.styledIcon<TRestyleIconProps>(CaretLeft),
   Search: StyledUtils.styledIcon<TRestyleIconProps>(MagnifyingGlass),
+  Filter: StyledUtils.styledIcon<TRestyleIconProps>(Faders),
 };
 
 export default IconMapping;

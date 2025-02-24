@@ -80,6 +80,7 @@ const TextField = ({
       right={renderRightNode}
       style={{
         height: Constants.INPUT_HEIGHT,
+        flex: 1,
       }}
       outlineColor={colors.borderLightGray}
       activeOutlineColor={colors.textPrimary}
