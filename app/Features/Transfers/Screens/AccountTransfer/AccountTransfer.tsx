@@ -7,9 +7,11 @@ import {
   NumericField,
 } from "@/UI/Molecules";
 import { I18nContext } from "@/Contexts";
+import { useRouter } from "expo-router";
+import { Routes } from "@/Routes";
 const AccountTransfer = () => {
   const { t } = I18nContext.useLocalization();
-
+  const router = useRouter();
   const accountsData: IAccount[] = [
     {
       id: "1",
@@ -68,6 +70,7 @@ const AccountTransfer = () => {
       <Box>
         <TitleBar title={t("Transactions.from")} />
         <AccountCard
+          onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
           account={accountsData[0]}
           containerProps={{
             borderBottomColor: "carrot",
@@ -77,6 +80,7 @@ const AccountTransfer = () => {
         />
         <TitleBar title={t("Transactions.to")} />
         <AccountCard
+          onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
           account={accountsData[1]}
           containerProps={{
             borderBottomColor: "primary",

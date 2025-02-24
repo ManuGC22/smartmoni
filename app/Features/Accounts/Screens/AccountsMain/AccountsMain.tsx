@@ -3,9 +3,12 @@ import { IAccount, AccountTypeEnum } from "@/Types";
 import { HeaderContainer, InfoBlock, TitleBar } from "@/UI/Molecules";
 import { I18nContext } from "@/Contexts";
 import { AccountsList } from "../../Components";
+import { Routes } from "@/Routes";
+import { useRouter } from "expo-router";
 
 const AccountsMain = () => {
   const { t } = I18nContext.useLocalization();
+  const router = useRouter();
 
   const accountsData: IAccount[] = [
     {
@@ -74,7 +77,12 @@ const AccountsMain = () => {
         </DisplayText>
       </HeaderContainer>
       <TitleBar title={t("Accounts.accounts")} />
-      <AccountsList accounts={accountsData} />
+      <AccountsList
+        accounts={accountsData}
+        onAccountCardPress={(account) => {
+          router.push(`${Routes.ACCOUNT_DETAIL}/${account.id}`);
+        }}
+      />
     </>
   );
 };
