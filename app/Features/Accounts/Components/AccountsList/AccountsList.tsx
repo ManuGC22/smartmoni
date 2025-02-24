@@ -5,7 +5,7 @@ import { I18nContext } from "@/Contexts";
 
 export interface IAccountsListProps {
   accounts: IAccount[];
-  onAccountCardPress?: () => void;
+  onAccountCardPress?: (account: IAccount) => void;
 }
 
 const AccountsList = ({ accounts, onAccountCardPress }: IAccountsListProps) => {
@@ -23,7 +23,7 @@ const AccountsList = ({ accounts, onAccountCardPress }: IAccountsListProps) => {
         )}
         renderItem={({ item, index }) => (
           <AccountCard
-            onPress={onAccountCardPress}
+            onPress={() => onAccountCardPress?.(item)}
             account={item}
             containerProps={{ marginTop: index === 0 ? "m" : "s" }}
           />

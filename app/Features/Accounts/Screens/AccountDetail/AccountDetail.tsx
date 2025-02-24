@@ -14,11 +14,14 @@ import {
 import { Box, Icon, Button } from "@/UI/Atoms";
 import { I18nContext } from "@/Contexts";
 import { TransactionsList } from "../../Components";
+import { useLocalSearchParams } from "expo-router";
 
 const AccountsDetail = () => {
   const { t } = I18nContext.useLocalization();
+  const { id } = useLocalSearchParams();
+
   const accountData = {
-    id: "5",
+    id: id,
     type: AccountTypeEnum.CHECKING,
     number: "00567890123",
     balance: 35000,
