@@ -1,5 +1,11 @@
 import { StyledUtils } from "@/Utils";
-import { CaretLeft, MagnifyingGlass, Faders } from "phosphor-react-native";
+import {
+  CaretLeft,
+  MagnifyingGlass,
+  Faders,
+  House,
+  ArrowsLeftRight,
+} from "phosphor-react-native";
 
 import {
   LayoutProps,
@@ -22,6 +28,8 @@ const IconMapping = {
   Back: StyledUtils.styledIcon<TRestyleIconProps>(CaretLeft),
   Search: StyledUtils.styledIcon<TRestyleIconProps>(MagnifyingGlass),
   Filter: StyledUtils.styledIcon<TRestyleIconProps>(Faders),
+  Home: StyledUtils.styledIcon<TRestyleIconProps>(House),
+  Swap: StyledUtils.styledIcon<TRestyleIconProps>(ArrowsLeftRight),
 };
 
 export default IconMapping;
