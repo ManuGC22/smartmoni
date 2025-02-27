@@ -1,0 +1,111 @@
+{
+  "accounts": [
+    {
+      "id": "acc-001",
+      "type": "SAVINGS",
+      "number": "1001234",
+      "balance": 25000,
+      "isActive": true,
+      "currency": "DOP",
+      "createdAt": "2024-12-15T10:30:00Z"
+    },
+    {
+      "id": "acc-002",
+      "type": "SAVINGS",
+      "number": "1005678",
+      "balance": 45000,
+      "isActive": true,
+      "currency": "DOP",
+      "createdAt": "2025-01-05T14:20:00Z"
+    },
+    {
+      "id": "acc-003",
+      "type": "CHECKING",
+      "number": "2001234",
+      "balance": 12500,
+      "isActive": true,
+      "currency": "DOP",
+      "createdAt": "2024-11-20T09:15:00Z"
+    },
+    {
+      "id": "acc-004",
+      "type": "CHECKING",
+      "number": "2005678",
+      "balance": 18000,
+      "isActive": true,
+      "currency": "DOP",
+      "createdAt": "2024-10-10T11:45:00Z"
+    },
+    {
+      "id": "acc-005",
+      "type": "SAVINGS",
+      "number": "1009999",
+      "balance": 32000,
+      "isActive": true,
+      "currency": "DOP",
+      "createdAt": "2024-09-05T16:30:00Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "trx-001",
+      "amount": 25000,
+      "currency": "DOP",
+      "createdAt": "2024-12-15T10:30:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "1009999",
+      "toAccountNumber": "1001234",
+      "description": "Depósito inicial"
+    },
+    {
+      "id": "trx-002",
+      "amount": 45000,
+      "currency": "DOP",
+      "createdAt": "2025-01-05T14:20:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "2005678",
+      "toAccountNumber": "1005678",
+      "description": "Depósito inicial"
+    },
+    {
+      "id": "trx-003",
+      "amount": 3000,
+      "currency": "DOP",
+      "createdAt": "2025-01-20T14:15:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "2001234",
+      "toAccountNumber": "1001234",
+      "description": "Transferencia entre cuentas"
+    },
+    {
+      "id": "trx-004",
+      "amount": 5000,
+      "currency": "DOP",
+      "createdAt": "2025-02-10T09:30:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "1005678",
+      "toAccountNumber": "2005678",
+      "description": "Pago de renta"
+    },
+    {
+      "id": "trx-005",
+      "amount": 7500,
+      "currency": "DOP",
+      "createdAt": "2025-02-12T12:45:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "2005678",
+      "toAccountNumber": "1009999",
+      "description": "Transferencia a cuenta de ahorros"
+    },
+    {
+      "id": "trx-006",
+      "amount": 4200,
+      "currency": "DOP",
+      "createdAt": "2025-02-15T18:20:00Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "1001234",
+      "toAccountNumber": "2001234",
+      "description": "Pago de servicio"
+    }
+  ]
+}

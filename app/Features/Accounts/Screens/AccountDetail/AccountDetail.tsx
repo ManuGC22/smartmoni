@@ -1,91 +1,50 @@
-import { useMemo, useCallback } from "react";
-import {
-  TransactionTypeEnum,
-  ITransaction,
-  TransactionStatusEnum,
-  AccountTypeEnum,
-} from "@/Types";
+import { useMemo, useCallback, useState, useEffect } from "react";
+import { ITransaction, IAccount, AccountTypeEnum } from "@/Types";
 import {
   HeaderContainer,
   InfoBlock,
   TitleBar,
   SearchInput,
+  OverlayLoader,
 } from "@/UI/Molecules";
 import { Box, Icon, Button } from "@/UI/Atoms";
 import { I18nContext } from "@/Contexts";
 import { TransactionsList } from "../../Components";
 import { useLocalSearchParams } from "expo-router";
+import { AccountAPI, TransactionAPI } from "@/API";
 
 const AccountsDetail = () => {
   const { t } = I18nContext.useLocalization();
   const { id } = useLocalSearchParams();
+  const [accountData, setAccountData] = useState<IAccount | null>(null);
+  const [transactionsData, setTransactionsData] = useState<ITransaction[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const accountData = {
-    id: id,
-    type: AccountTypeEnum.CHECKING,
-    number: "00567890123",
-    balance: 35000,
-    isActive: true,
-    currency: "DOP",
-    createdAt: "2023-11-05T08:10:00Z",
-  };
-  const transactionsData: ITransaction[] = [
-    {
-      id: "1",
-      type: TransactionTypeEnum.DEPOSIT,
-      amount: 5000,
-      currency: "DOP",
-      createdAt: "2024-02-23T12:30:00Z",
-      status: TransactionStatusEnum.COMPLETED,
-      fromAccountId: "00123456",
-      toAccountId: "00987654",
-      description: "Transferencia a cuenta de ahorros",
-    },
-    {
-      id: "2",
-      type: TransactionTypeEnum.WITHDRAWAL,
-      amount: 1200,
-      currency: "USD",
-      createdAt: "2024-02-20T14:15:00Z",
-      status: TransactionStatusEnum.PENDING,
-      fromAccountId: "00345678",
-      toAccountId: "00987654",
-      description: "Pago de suscripción mensual",
-    },
-    {
-      id: "3",
-      type: TransactionTypeEnum.DEPOSIT,
-      amount: 30000,
-      currency: "DOP",
-      createdAt: "2024-01-10T09:00:00Z",
-      status: TransactionStatusEnum.COMPLETED,
-      toAccountId: "00123459",
-      fromAccountId: "00987654",
-      description: "Depósito de nómina",
-    },
-    {
-      id: "4",
-      type: TransactionTypeEnum.WITHDRAWAL,
-      amount: 5000,
-      currency: "DOP",
-      createdAt: "2024-01-08T11:45:00Z",
-      status: TransactionStatusEnum.FAILED,
-      toAccountId: "00987654",
-      fromAccountId: "00123456",
-      description: "Retiro fallido en cajero automático",
-    },
-    {
-      id: "5",
-      type: TransactionTypeEnum.DEPOSIT,
-      amount: 15000,
-      currency: "DOP",
-      createdAt: "2024-02-18T08:20:00Z",
-      status: TransactionStatusEnum.COMPLETED,
-      fromAccountId: "00987654",
-      toAccountId: "00123456",
-      description: "Transferencia recibida de amigo",
-    },
-  ];
+  useEffect(() => {
+    const fetchAccountDetails = async () => {
+      setLoading(true);
+      setTransactionsData([]); // 🔹 Clear transactions immediately
+
+      try {
+        const account = await AccountAPI.getById(id as string);
+        if (!account) {
+          return null;
+        }
+        const transactions = await TransactionAPI.getAllByAccountNumber(
+          account.number,
+        );
+        setAccountData(account);
+        setTransactionsData(transactions);
+      } catch (error) {
+        console.error("Error fetching account details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAccountDetails();
+  }, [id]);
+
   const accountTypeLabels = useMemo(
     () => ({
       [AccountTypeEnum.CHECKING]: t("Accounts.checkingAccount"),
@@ -119,6 +78,14 @@ const AccountsDetail = () => {
       </Box>
     );
   }, [t, transactionsData.length]);
+
+  if (!accountData) {
+    return null;
+  }
+
+  if (loading) {
+    return <OverlayLoader mode="component" isLoading />;
+  }
   return (
     <>
       <HeaderContainer containerProps={{ rowGap: "m" }}>
@@ -139,7 +106,10 @@ const AccountsDetail = () => {
       </HeaderContainer>
       <TitleBar title={t("Transactions.transactions")} />
       {renderHeader()}
-      <TransactionsList transactions={transactionsData} />
+      <TransactionsList
+        currentAccountNumber={accountData.number}
+        transactions={transactionsData}
+      />
     </>
   );
 };

@@ -28,13 +28,12 @@ export interface IAccount {
 
 export interface ITransaction {
   id: string;
-  type: TransactionTypeEnum;
   amount: number;
   currency: string;
   createdAt: string;
   status: TransactionStatusEnum;
-  fromAccountId: string;
-  toAccountId: string;
+  fromAccountNumber: string;
+  toAccountNumber: string;
   description?: string;
 }
 

@@ -6,14 +6,20 @@ import { I18nContext } from "@/Contexts";
 export interface IAccountsListProps {
   accounts: IAccount[];
   onAccountCardPress?: (account: IAccount) => void;
+  isLoading?: boolean;
 }
 
-const AccountsList = ({ accounts, onAccountCardPress }: IAccountsListProps) => {
+const AccountsList = ({
+  accounts,
+  onAccountCardPress,
+  isLoading,
+}: IAccountsListProps) => {
   const { t } = I18nContext.useLocalization();
   return (
     <>
       <List
         data={accounts}
+        loading={isLoading}
         ListEmptyComponent={() => (
           <Box flex={1} justifyContent={"center"} alignItems={"center"}>
             <DisplayText variant={"title"} textAlign={"center"}>
