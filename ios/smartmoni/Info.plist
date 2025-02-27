@@ -31,6 +31,12 @@
           <string>com.anonymous.smartmoni</string>
         </array>
       </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.707983838690-nr7qgh2if45mkf545d1sa870g2i6es1k</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
@@ -48,6 +54,13 @@
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
+    </array>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Poppins-Bold.ttf</string>
+      <string>Poppins-Medium.ttf</string>
+      <string>Poppins-Regular.ttf</string>
+      <string>Poppins-SemiBold.ttf</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>

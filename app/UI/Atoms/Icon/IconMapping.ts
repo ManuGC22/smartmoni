@@ -5,6 +5,7 @@ import {
   Faders,
   House,
   ArrowsLeftRight,
+  GoogleLogo,
 } from "phosphor-react-native";
 
 import {
@@ -30,6 +31,7 @@ const IconMapping = {
   Filter: StyledUtils.styledIcon<TRestyleIconProps>(Faders),
   Home: StyledUtils.styledIcon<TRestyleIconProps>(House),
   Swap: StyledUtils.styledIcon<TRestyleIconProps>(ArrowsLeftRight),
+  Google: StyledUtils.styledIcon<TRestyleIconProps>(GoogleLogo),
 };
 
 export default IconMapping;

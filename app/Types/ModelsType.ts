@@ -1,3 +1,5 @@
+import { User } from "@react-native-google-signin/google-signin";
+
 export enum AccountTypeEnum {
   SAVINGS = "SAVINGS",
   CHECKING = "CHECKING",
@@ -35,3 +37,5 @@ export interface ITransaction {
   toAccountId: string;
   description?: string;
 }
+
+export interface IUser extends User {}

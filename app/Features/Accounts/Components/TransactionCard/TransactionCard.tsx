@@ -32,12 +32,11 @@ const TransactionCard = ({
         padding={"s"}
         borderWidth={0.5}
         borderLeftWidth={5}
-        borderLeftColor={
+        borderColor={
           transaction.type === TransactionTypeEnum.DEPOSIT
             ? "primary"
             : "carrot"
         }
-        borderColor={"borderLightGray"}
         backgroundColor={"background"}
         {...containerProps}
       >

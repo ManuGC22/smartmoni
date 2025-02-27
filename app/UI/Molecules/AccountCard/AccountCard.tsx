@@ -33,9 +33,9 @@ const AccountCard = ({
         padding={"s"}
         borderWidth={0.5}
         borderBottomWidth={5}
-        borderBottomColor={"primary"}
-        borderColor={"borderLightGray"}
+        borderColor={"primary"}
         backgroundColor={"background"}
+        borderStyle={"solid"}
         {...containerProps}
       >
         <Box

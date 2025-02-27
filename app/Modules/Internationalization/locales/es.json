@@ -5,7 +5,9 @@
     "transfer": "Transferir"
   },
   "Login": {
-    "message": "La manera mas inteligente de gestionar tus finanzas!"
+    "message": "La manera mas inteligente de gestionar tus finanzas!",
+    "welcome": "Bienvenido",
+    "google": "Iniciar Sesión con Google"
   },
   "General": {
     "hello": "Hola"
