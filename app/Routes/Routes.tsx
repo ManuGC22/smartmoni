@@ -1,4 +1,5 @@
 export const AUTH_STACK = "/Auth";
+export const AUTH_LOGIN = "/Auth/Login";
 
 export const MAIN_STACK = "/Main";
 export const ACCOUNTS_SELECT = "/Main/AccountSelect";
