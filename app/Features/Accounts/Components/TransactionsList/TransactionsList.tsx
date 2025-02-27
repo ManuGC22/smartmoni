@@ -6,11 +6,13 @@ import TransactionCard from "../TransactionCard";
 
 export interface ITransactionsListProps {
   transactions: ITransaction[];
+  currentAccountNumber: string;
   onTransactionCardPress?: () => void;
 }
 
 const TransactionsList = ({
   transactions,
+  currentAccountNumber,
   onTransactionCardPress,
 }: ITransactionsListProps) => {
   const { t } = I18nContext.useLocalization();
@@ -28,6 +30,7 @@ const TransactionsList = ({
         )}
         renderItem={({ item, index }) => (
           <TransactionCard
+            currentAccountNumber={currentAccountNumber}
             onPress={onTransactionCardPress}
             transaction={item}
             containerProps={{ marginTop: index === 0 ? "m" : "s" }}

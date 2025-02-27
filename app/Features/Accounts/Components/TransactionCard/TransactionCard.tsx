@@ -1,29 +1,36 @@
 import { TouchableOpacity } from "react-native";
 import { Box, DisplayText } from "@/UI/Atoms";
 import { Card, DisplayDate, DisplayCurrency } from "@/UI/Molecules";
-import { ITransaction, TransactionTypeEnum, IBoxComponentProps } from "@/Types";
+import { ITransaction, IBoxComponentProps } from "@/Types";
 import { I18nContext } from "@/Contexts";
 import { useMemo } from "react";
 
 export interface ITransactionCardProps {
   transaction: ITransaction;
   containerProps?: IBoxComponentProps;
+  currentAccountNumber?: string;
   onPress?: () => void;
 }
 
 const TransactionCard = ({
   transaction,
   containerProps,
+  currentAccountNumber,
   onPress,
 }: ITransactionCardProps) => {
   const { t } = I18nContext.useLocalization();
 
-  const transactionTypeLabels = useMemo(
-    () => ({
-      [TransactionTypeEnum.DEPOSIT]: `${t("Transactions.transferFrom")} ${transaction.fromAccountId}`,
-      [TransactionTypeEnum.WITHDRAWAL]: `${t("Transactions.transferTo")} ${transaction.toAccountId}`,
-    }),
-    [t, transaction.fromAccountId, transaction.toAccountId],
+  const isDeposit = useMemo(
+    () => transaction.fromAccountNumber === currentAccountNumber,
+    [transaction.fromAccountNumber, currentAccountNumber],
+  );
+
+  const transactionLabel = useMemo(
+    () =>
+      isDeposit
+        ? `${t("Transactions.transferFrom")} ${transaction.fromAccountNumber}`
+        : `${t("Transactions.transferTo")} ${transaction.toAccountNumber}`,
+    [isDeposit, transaction.fromAccountNumber, transaction.toAccountNumber, t],
   );
 
   return (
@@ -32,18 +39,14 @@ const TransactionCard = ({
         padding={"s"}
         borderWidth={0.5}
         borderLeftWidth={5}
-        borderColor={
-          transaction.type === TransactionTypeEnum.DEPOSIT
-            ? "primary"
-            : "carrot"
-        }
+        borderColor={isDeposit ? "primary" : "carrot"}
         backgroundColor={"background"}
         {...containerProps}
       >
         <Box flexDirection="row" columnGap={"xs"} alignItems="center">
           <Box flex={1} rowGap={"m"}>
             <DisplayText variant="body" color="textAccent">
-              {transactionTypeLabels[transaction.type]}
+              {transactionLabel}
             </DisplayText>
             <DisplayDate
               variant="fineText"
@@ -54,9 +57,7 @@ const TransactionCard = ({
             </DisplayDate>
           </Box>
           <Box flexDirection={"row"} alignItems="flex-end">
-            <DisplayText>
-              {transaction.type === TransactionTypeEnum.DEPOSIT ? "+" : "-"}
-            </DisplayText>
+            <DisplayText>{isDeposit ? "+" : "-"}</DisplayText>
             <DisplayCurrency value={transaction.amount} variant="bodyBold" />
           </Box>
         </Box>
