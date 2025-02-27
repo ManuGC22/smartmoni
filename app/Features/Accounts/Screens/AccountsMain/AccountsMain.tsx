@@ -1,13 +1,14 @@
 import { DisplayText } from "@/UI/Atoms";
 import { IAccount, AccountTypeEnum } from "@/Types";
 import { HeaderContainer, InfoBlock, TitleBar } from "@/UI/Molecules";
-import { I18nContext } from "@/Contexts";
+import { I18nContext, AuthContext } from "@/Contexts";
 import { AccountsList } from "../../Components";
 import { Routes } from "@/Routes";
 import { useRouter } from "expo-router";
 
 const AccountsMain = () => {
   const { t } = I18nContext.useLocalization();
+  const { currentUser } = AuthContext.useAuth();
   const router = useRouter();
 
   const accountsData: IAccount[] = [
@@ -73,7 +74,7 @@ const AccountsMain = () => {
           variant={"titleSemiBold"}
         />
         <DisplayText variant={"bodyBold"} color={"textSecondary"}>
-          {`${t("General.hello")} Usuario!`}
+          {`${t("General.hello")} ${currentUser?.user.name}!`}
         </DisplayText>
       </HeaderContainer>
       <TitleBar title={t("Accounts.accounts")} />

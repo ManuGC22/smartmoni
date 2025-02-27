@@ -73,7 +73,7 @@ const AccountTransfer = () => {
           onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
           account={accountsData[0]}
           containerProps={{
-            borderBottomColor: "carrot",
+            borderColor: "carrot",
             marginVertical: "m",
             marginHorizontal: "s",
           }}
@@ -83,7 +83,7 @@ const AccountTransfer = () => {
           onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
           account={accountsData[1]}
           containerProps={{
-            borderBottomColor: "primary",
+            borderColor: "primary",
             marginVertical: "m",
             marginHorizontal: "s",
           }}
