@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+# SmartMoni - Mobile Banking Simulator 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+SmartMoni es una aplicación móvil desarrollada con **React Native + Expo** que simula las funcionalidades esenciales de una aplicación de banca móvil.
 
-## Get started
+---
 
-1. Install dependencies
+## 📋 Funcionalidades
 
-   ```bash
-   npm install
-   ```
+✅ Consultar saldo de cuentas.  
+✅ Visualizar transacciones recientes.  
+✅ Realizar transferencias entre cuentas.  
+✅ Autenticación con Google (OAuth).  
+✅ Manejo de inactividad (user inactivity).  
+✅ Soporte multilenguaje (i18n).
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 📂 Estructura Principal
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```txt
+/
+├── API/
+├── Features/
+│   ├── Accounts/
+│   ├── Transfers/
+│   ├── Auth/
+├── Navigation/
+├── Core/
+├── Types/
+├── UI/
+├── Hooks/
+├── Modules/
+├── Contexts/
+├── API/
+├── Routes/
+├── Services/
+├── Utils/
+└── Types/
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🛠️ Requisitos Previos
 
-To learn more about developing your project with Expo, look at the following resources:
+Antes de ejecutar la app, asegúrate de tener:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Node.js 22.12.0
+- Yarn instalado
+- Emulador o dispositivo físico configurado
+- `json-server` para servir el mock API
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🚀 Instrucciones de Instalación
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/ManuGC22/smartmoni.git
+cd smartmoni
+```
+
+2. Instala las dependencias:
+
+```bash
+yarn install
+```
+
+3. Crea un archivo `.env` .
+
+4. Ejecuta el mock API:
+
+```bash
+yarn mock-api
+```
+
+---
+
+## ▶️ Ejecución de la App
+
+### Ejecutar en iOS (si tienes Mac):
+
+```bash
+yarn ios
+```
+
+### Ejecutar en Android:
+
+```bash
+yarn android
+```
+
+---
+
+## ✅ Pruebas Unitarias
+
+Para ejecutar los tests unitarios:
+
+```bash
+yarn test
+```
+
+---
+
+## ⚠️ Notas Importantes
+
+- En Android, la app se conecta al mock API usando:
+  ```
+  http://10.0.2.2:3001
+  ```
+- En iOS o Web, usa:
+  ```
+  http://localhost:3001
+  ```
+
+---
+
+## 📜 Tecnologías Clave
+
+| Tecnología             | Uso                   |
+| ---------------------- | --------------------- |
+| React Native + Expo    | Core de la App        |
+| TypeScript             | Tipado seguro         |
+| Expo Router            | Navegación            |
+| Axios                  | Consumo de API        |
+| React Native MMKV      | Almacenamiento seguro |
+| Jest + Testing Library | Pruebas unitarias     |
+| json-server            | Mock API              |
+| Husky + Lint-Staged    | Pre-commit checks     |
+
+---
+
+## 📬 Contacto
+
+Para cualquier duda o aclaración sobre la prueba técnica, puedes contactarme.
