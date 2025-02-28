@@ -1,5 +1,4 @@
 import GBottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyledUtils } from "@/Utils";
 import { IBoxComponentProps } from "@/Types";
 
@@ -22,7 +21,7 @@ const BottomSheet = ({
     <GBottomSheet
       ref={sheetRef}
       snapPoints={["1%", "25%", "50%", "75%", "100%"]}
-      index={3} // This makes it hidden by default
+      index={-1}
       enablePanDownToClose={true}
       onChange={onChange}
     >
