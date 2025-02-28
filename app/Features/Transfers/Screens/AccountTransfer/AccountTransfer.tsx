@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { DisplayText, Box, Button } from "@/UI/Atoms";
 import {
   HeaderContainer,
@@ -27,17 +27,17 @@ const AccountTransfer = () => {
     setAmount,
   } = AccountsContext.useAccounts();
 
-  const handleSelectSource = () => {
+  const handleSelectSource = useCallback(() => {
     setSelectingFor("source");
     router.push(Routes.ACCOUNTS_SELECT);
-  };
+  }, [setSelectingFor, router]);
 
-  const handleSelectDestination = () => {
+  const handleSelectDestination = useCallback(() => {
     setSelectingFor("destination");
     router.push(Routes.ACCOUNTS_SELECT);
-  };
+  }, [setSelectingFor, router]);
 
-  const handleTransfer = async () => {
+  const handleTransfer = useCallback(async () => {
     if (!sourceAccount || !destinationAccount || !amount) {
       return;
     }
@@ -79,7 +79,18 @@ const AccountTransfer = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [
+    sourceAccount,
+    destinationAccount,
+    amount,
+    showSnackbar,
+    t,
+    setAmount,
+    setSourceAccount,
+    setDestinationAccount,
+    setIsLoading,
+  ]);
+
   return (
     <>
       <HeaderContainer containerProps={{ rowGap: "m" }}>
