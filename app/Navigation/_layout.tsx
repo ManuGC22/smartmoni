@@ -6,7 +6,12 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Theme, RestyledTheme } from "@/Core/Theme";
-import { SnackbarContext, I18nContext, AuthContext } from "@/Contexts";
+import {
+  SnackbarContext,
+  I18nContext,
+  AuthContext,
+  AccountsContext,
+} from "@/Contexts";
 import { Slot } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -35,7 +40,9 @@ export default function RootLayout() {
             <PaperProvider theme={Theme}>
               <AuthContext.Provider>
                 <SnackbarContext.Provider>
-                  <Slot />
+                  <AccountsContext.Provider>
+                    <Slot />
+                  </AccountsContext.Provider>
                 </SnackbarContext.Provider>
               </AuthContext.Provider>
             </PaperProvider>
