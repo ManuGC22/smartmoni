@@ -37,11 +37,11 @@ export const filterTransactions = (
 
   // Filter by transaction type (deposit or withdrawal)
   if (transactionType) {
-    if (transactionType === TransactionTypeEnum.WITHDRAWAL) {
+    if (transactionType === TransactionTypeEnum.DEPOSIT) {
       result = result.filter(
         (transaction) => transaction.toAccountNumber === currentAccountNumber,
       );
-    } else if (transactionType === TransactionTypeEnum.DEPOSIT) {
+    } else if (transactionType === TransactionTypeEnum.WITHDRAWAL) {
       result = result.filter(
         (transaction) => transaction.fromAccountNumber === currentAccountNumber,
       );
