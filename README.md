@@ -143,4 +143,4 @@ yarn test
 
 ## 📬 Contacto
 
-Para cualquier duda o aclaración sobre la prueba técnica, puedes contactarme.
+Para cualquier duda o aclaración sobre la prueba técnica, puedes contactarme a manugc.dev@gmail.com
