@@ -1,29 +1,38 @@
-import { useMemo, useCallback, useState, useEffect } from "react";
+import { useMemo, useCallback, useState, useEffect, useRef } from "react";
 import { ITransaction, IAccount, AccountTypeEnum } from "@/Types";
 import {
   HeaderContainer,
   InfoBlock,
   TitleBar,
-  SearchInput,
   OverlayLoader,
 } from "@/UI/Molecules";
-import { Box, Icon, Button } from "@/UI/Atoms";
+
 import { I18nContext } from "@/Contexts";
-import { TransactionsList } from "../../Components";
+import {
+  TransactionsList,
+  TransactionFilterBar,
+  TransactionFiltersBottomSheet,
+} from "../../Components";
 import { useLocalSearchParams } from "expo-router";
 import { AccountAPI, TransactionAPI } from "@/API";
+import GBottomSheet from "@gorhom/bottom-sheet";
+import { useTransactionFilters } from "@/Hooks";
 
 const AccountsDetail = () => {
   const { t } = I18nContext.useLocalization();
   const { id } = useLocalSearchParams();
   const [accountData, setAccountData] = useState<IAccount | null>(null);
-  const [transactionsData, setTransactionsData] = useState<ITransaction[]>([]);
+  const [allTransactions, setAllTransactions] = useState<ITransaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const bottomSheetRef = useRef<GBottomSheet>(null);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { filters, setters, filteredTransactions, clearFilters } =
+    useTransactionFilters(allTransactions, accountData?.number);
 
   useEffect(() => {
     const fetchAccountDetails = async () => {
       setLoading(true);
-      setTransactionsData([]); // 🔹 Clear transactions immediately
+      setAllTransactions([]);
 
       try {
         const account = await AccountAPI.getById(id as string);
@@ -34,7 +43,7 @@ const AccountsDetail = () => {
           account.number,
         );
         setAccountData(account);
-        setTransactionsData(transactions);
+        setAllTransactions(transactions);
       } catch (error) {
         console.error("Error fetching account details:", error);
       } finally {
@@ -45,6 +54,16 @@ const AccountsDetail = () => {
     fetchAccountDetails();
   }, [id]);
 
+  const toggleBottomSheet = useCallback(() => {
+    if (isBottomSheetOpen) {
+      bottomSheetRef.current?.close();
+      setIsBottomSheetOpen(false);
+    } else {
+      bottomSheetRef.current?.snapToIndex(3);
+      setIsBottomSheetOpen(true);
+    }
+  }, [isBottomSheetOpen]);
+
   const accountTypeLabels = useMemo(
     () => ({
       [AccountTypeEnum.CHECKING]: t("Accounts.checkingAccount"),
@@ -52,32 +71,11 @@ const AccountsDetail = () => {
     }),
     [t],
   );
-  const renderHeader = useCallback(() => {
-    if (!transactionsData.length) {
-      return null;
-    }
 
-    return (
-      <Box
-        backgroundColor={"background"}
-        width={"100%"}
-        padding={"s"}
-        flexDirection={"row"}
-        columnGap={"m"}
-        justifyContent={"space-between"}
-        borderBottomWidth={0.5}
-        borderBottomColor={"borderLightGray"}
-      >
-        <SearchInput
-          onSearchTermChange={() => {}}
-          placeholder={t("Accounts.searchTransactions")}
-        />
-        <Button mode="outlined" onPress={() => {}}>
-          <Icon name="Filter" color="primary" />
-        </Button>
-      </Box>
-    );
-  }, [t, transactionsData.length]);
+  const handleCloseFilter = useCallback(() => {
+    setIsBottomSheetOpen(false);
+    bottomSheetRef.current?.close();
+  }, []);
 
   if (!accountData) {
     return null;
@@ -105,10 +103,27 @@ const AccountsDetail = () => {
         />
       </HeaderContainer>
       <TitleBar title={t("Transactions.transactions")} />
-      {renderHeader()}
+      <TransactionFilterBar
+        onSearchChange={setters.setSearchTerm}
+        hasTransactions={allTransactions.length > 0}
+        onFilterPress={toggleBottomSheet}
+      />
       <TransactionsList
         currentAccountNumber={accountData.number}
-        transactions={transactionsData}
+        transactions={filteredTransactions}
+      />
+      <TransactionFiltersBottomSheet
+        sheetRef={bottomSheetRef}
+        isOpen={isBottomSheetOpen}
+        onOpenChange={setIsBottomSheetOpen}
+        dateRange={filters.dateRange}
+        onDateRangeChange={setters.setDateRange}
+        transactionType={filters.transactionType}
+        onTransactionTypeChange={setters.setTransactionType}
+        amount={filters.transactionAmount}
+        onAmountChange={setters.setTransactionAmount}
+        onClear={clearFilters}
+        onClose={handleCloseFilter}
       />
     </>
   );

@@ -1,7 +1,7 @@
 {
   "Actions": {
-    "cleanFilter": "Limpiar Filtros",
-    "applyFilter": "Aplicar",
+    "clearFilters": "Restaurar",
+    "close": "Cerrar",
     "transfer": "Transferir"
   },
   "Login": {
@@ -20,19 +20,24 @@
     "savingsAccount": "Cuenta de Ahorro",
     "noAccounts": "Actualmente no tienes cuentas asociadas a tu usuario.",
     "chooseAccount": "Selecciona una cuenta",
-    "searchTransactions": "Buscar Transacciones"
+    "searchTransactions": "Buscar por número de cuenta"
   },
   "Transactions": {
     "transactions": "Transacciones",
     "transfer": "Transferir",
-    "noTransactions": "Actualmente no tienes transacciones asociadas a esta cuenta.",
+    "noTransactions": "Actualmente no tienes transacciones asociadas a esta cuenta o no hay resultados que coincidan con los filtros aplicados.",
     "transferFrom": "Transferencia desde la cuenta",
     "transferTo": "Transferencia hacia la cuenta",
     "transferToOtherAccounts": "Transferir a otras cuentas",
     "date": "Fecha",
     "type": "Tipo de Transacción",
-    "amount": "Monto",
+    "minAmount": "Monto Mínimo",
     "from": "Desde",
-    "to": "Hacia"
+    "to": "Hacia",
+    "last7Days": "Hace 7 días",
+    "last30Days": "Hace 30 días",
+    "last90Days": "Hace 90 días",
+    "deposits": "Depósitos",
+    "withdrawals": "Retiros"
   }
 }

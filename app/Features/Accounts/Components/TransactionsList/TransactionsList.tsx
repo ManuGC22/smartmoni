@@ -24,7 +24,7 @@ const TransactionsList = ({
         ListEmptyComponent={() => (
           <Box flex={1} justifyContent={"center"} alignItems={"center"}>
             <DisplayText variant={"title"} textAlign={"center"}>
-              {t("Accounts.noTransactions")}
+              {t("Transactions.noTransactions")}
             </DisplayText>
           </Box>
         )}

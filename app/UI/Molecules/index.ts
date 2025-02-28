@@ -36,3 +36,6 @@ export type { IInfoBlockProps } from "./InfoBlock";
 
 export { default as HeaderContainer } from "./HeaderContainer";
 export type { IHeaderContainerProps } from "./HeaderContainer";
+
+export { default as BottomSheet } from "./BottomSheet";
+export type { IBottomSheetProps } from "./BottomSheet";
