@@ -20,17 +20,22 @@ const TransactionCard = ({
 }: ITransactionCardProps) => {
   const { t } = I18nContext.useLocalization();
 
-  const isDeposit = useMemo(
+  const isWithdrawal = useMemo(
     () => transaction.fromAccountNumber === currentAccountNumber,
     [transaction.fromAccountNumber, currentAccountNumber],
   );
 
   const transactionLabel = useMemo(
     () =>
-      isDeposit
-        ? `${t("Transactions.transferFrom")} ${transaction.fromAccountNumber}`
-        : `${t("Transactions.transferTo")} ${transaction.toAccountNumber}`,
-    [isDeposit, transaction.fromAccountNumber, transaction.toAccountNumber, t],
+      isWithdrawal
+        ? `${t("Transactions.transferTo")} ${transaction.toAccountNumber}`
+        : `${t("Transactions.transferFrom")} ${transaction.fromAccountNumber}`,
+    [
+      isWithdrawal,
+      transaction.fromAccountNumber,
+      transaction.toAccountNumber,
+      t,
+    ],
   );
 
   return (
@@ -39,7 +44,7 @@ const TransactionCard = ({
         padding={"s"}
         borderWidth={0.5}
         borderLeftWidth={5}
-        borderColor={isDeposit ? "primary" : "carrot"}
+        borderColor={isWithdrawal ? "carrot" : "primary"}
         backgroundColor={"background"}
         {...containerProps}
       >
@@ -57,7 +62,7 @@ const TransactionCard = ({
             </DisplayDate>
           </Box>
           <Box flexDirection={"row"} alignItems="flex-end">
-            <DisplayText>{isDeposit ? "+" : "-"}</DisplayText>
+            <DisplayText>{isWithdrawal ? "-" : "+"}</DisplayText>
             <DisplayCurrency value={transaction.amount} variant="bodyBold" />
           </Box>
         </Box>
