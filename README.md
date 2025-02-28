@@ -117,16 +117,15 @@ yarn test
 
 ## 📜 Tecnologías Clave
 
-| Tecnología             | Uso                   |
-| ---------------------- | --------------------- |
-| React Native + Expo    | Core de la App        |
-| TypeScript             | Tipado seguro         |
-| Expo Router            | Navegación            |
-| Axios                  | Consumo de API        |
-| React Native MMKV      | Almacenamiento seguro |
-| Jest + Testing Library | Pruebas unitarias     |
-| json-server            | Mock API              |
-| Husky + Lint-Staged    | Pre-commit checks     |
+| Tecnología             | Uso               |
+| ---------------------- | ----------------- |
+| React Native + Expo    | Core de la App    |
+| TypeScript             | Tipado seguro     |
+| Expo Router            | Navegación        |
+| Axios                  | Consumo de API    |
+| Jest + Testing Library | Pruebas unitarias |
+| json-server            | Mock API          |
+| Husky + Lint-Staged    | Pre-commit checks |
 
 ---
 
