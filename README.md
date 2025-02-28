@@ -51,6 +51,18 @@ Antes de ejecutar la app, asegúrate de tener:
 
 ---
 
+## 🔑 Configuración de Variables de Entorno
+
+Para que la aplicación funcione correctamente, es necesario crear un archivo llamado `.env` en la raíz del proyecto.
+
+Este archivo `.env` contiene variables de entorno como la URL de la API y las credenciales necesarias para la autenticación con Google. Por motivos de seguridad, este archivo **no está incluido en el repositorio**.
+
+El archivo `.env` ha sido enviado por correo electrónico. Una vez recibido, simplemente colócalo en la raíz del proyecto, al mismo nivel que el `package.json`, y la app estará lista para ejecutarse.
+
+Si no has recibido el archivo `.env`, por favor avísame para reenviarlo.
+
+---
+
 ## 🚀 Instrucciones de Instalación
 
 1. Clona el repositorio:
