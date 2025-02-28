@@ -15,7 +15,7 @@ const AccountsMain = () => {
   const router = useRouter();
   const [accounts, setAccounts] = useState<IAccount[]>([]);
   const [loading, setLoading] = useState(true);
-  const fetchAccounts = async () => {
+  const fetchAccounts = useCallback(async () => {
     try {
       const data = await AccountAPI.getAll();
       setAccounts(data);
@@ -24,12 +24,12 @@ const AccountsMain = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
       fetchAccounts();
-    }, []),
+    }, [fetchAccounts]),
   );
 
   const accountsTotal = useMemo(
