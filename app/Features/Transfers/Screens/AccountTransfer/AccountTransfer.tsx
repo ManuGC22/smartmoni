@@ -1,65 +1,85 @@
+import { useState } from "react";
 import { DisplayText, Box, Button } from "@/UI/Atoms";
-import { IAccount, AccountTypeEnum } from "@/Types";
 import {
   HeaderContainer,
   TitleBar,
   AccountCard,
   NumericField,
 } from "@/UI/Molecules";
-import { I18nContext } from "@/Contexts";
+import { TouchableOpacity, Keyboard } from "react-native";
+import { I18nContext, AccountsContext, SnackbarContext } from "@/Contexts";
 import { useRouter } from "expo-router";
 import { Routes } from "@/Routes";
+import { TransactionAPI } from "@/API";
+
 const AccountTransfer = () => {
   const { t } = I18nContext.useLocalization();
   const router = useRouter();
-  const accountsData: IAccount[] = [
-    {
-      id: "1",
-      type: AccountTypeEnum.CHECKING,
-      number: "00123456789",
-      balance: 120000,
-      isActive: true,
-      currency: "DOP",
-      createdAt: "2024-02-23T12:00:00Z",
-    },
-    {
-      id: "2",
-      type: AccountTypeEnum.SAVINGS,
-      number: "00987654321",
-      balance: 85000,
-      isActive: true,
-      currency: "DOP",
-      createdAt: "2024-02-20T15:30:00Z",
-    },
-    {
-      id: "3",
-      type: AccountTypeEnum.CHECKING,
-      number: "00345678901",
-      balance: 45000,
-      isActive: true,
-      currency: "DOP",
-      createdAt: "2024-01-15T09:45:00Z",
-    },
-    {
-      id: "4",
-      type: AccountTypeEnum.SAVINGS,
-      number: "00456789012",
-      balance: 97000,
-      isActive: true,
-      currency: "DOP",
-      createdAt: "2023-12-10T11:20:00Z",
-    },
-    {
-      id: "5",
-      type: AccountTypeEnum.CHECKING,
-      number: "00567890123",
-      balance: 35000,
-      isActive: true,
-      currency: "DOP",
-      createdAt: "2023-11-05T08:10:00Z",
-    },
-  ];
+  const showSnackbar = SnackbarContext.useSnackbar();
+  const [isLoading, setIsLoading] = useState(false);
+  const {
+    sourceAccount,
+    destinationAccount,
+    setSelectingFor,
+    setSourceAccount,
+    setDestinationAccount,
+    amount,
+    setAmount,
+  } = AccountsContext.useAccounts();
 
+  const handleSelectSource = () => {
+    setSelectingFor("source");
+    router.push(Routes.ACCOUNTS_SELECT);
+  };
+
+  const handleSelectDestination = () => {
+    setSelectingFor("destination");
+    router.push(Routes.ACCOUNTS_SELECT);
+  };
+
+  const handleTransfer = async () => {
+    if (!sourceAccount || !destinationAccount || !amount) {
+      return;
+    }
+    const numericAmount = parseFloat(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      showSnackbar({ text: t("Transactions.moreThanZero") });
+      return;
+    }
+
+    if (sourceAccount.balance < numericAmount) {
+      showSnackbar({ text: t("Transactions.insufficientFunds") });
+      return;
+    }
+    try {
+      setIsLoading(true);
+      Keyboard.dismiss();
+
+      await TransactionAPI.transfer({
+        sourceAccount,
+        destinationAccount,
+        amount: numericAmount,
+        description: "Transferencia entre cuentas",
+      });
+
+      setAmount("");
+      setSourceAccount(null);
+      setDestinationAccount(null);
+
+      showSnackbar({
+        text: t("Transactions.transferSuccess"),
+      });
+    } catch (error) {
+      console.error("Error al realizar transferencia:", error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : t("Transactions.transferError");
+      showSnackbar({ text: errorMessage });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       <HeaderContainer containerProps={{ rowGap: "m" }}>
@@ -69,25 +89,61 @@ const AccountTransfer = () => {
       </HeaderContainer>
       <Box>
         <TitleBar title={t("Transactions.from")} />
-        <AccountCard
-          onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
-          account={accountsData[0]}
-          containerProps={{
-            borderColor: "carrot",
-            marginVertical: "m",
-            marginHorizontal: "s",
-          }}
-        />
+
+        {sourceAccount ? (
+          <AccountCard
+            onPress={handleSelectSource}
+            account={sourceAccount}
+            containerProps={{
+              borderColor: "carrot",
+              marginVertical: "m",
+              marginHorizontal: "s",
+            }}
+          />
+        ) : (
+          <TouchableOpacity onPress={handleSelectSource}>
+            <Box
+              padding={"l"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              borderWidth={0.5}
+              borderRadius={"card"}
+              m={"s"}
+            >
+              <DisplayText variant={"bodyBold"} color={"carrot"}>
+                {t("Accounts.chooseAccount")}
+              </DisplayText>
+            </Box>
+          </TouchableOpacity>
+        )}
+
         <TitleBar title={t("Transactions.to")} />
-        <AccountCard
-          onPress={() => router.push(Routes.ACCOUNTS_SELECT)}
-          account={accountsData[1]}
-          containerProps={{
-            borderColor: "primary",
-            marginVertical: "m",
-            marginHorizontal: "s",
-          }}
-        />
+        {destinationAccount ? (
+          <AccountCard
+            onPress={handleSelectDestination}
+            account={destinationAccount}
+            containerProps={{
+              borderColor: "primary",
+              marginVertical: "m",
+              marginHorizontal: "s",
+            }}
+          />
+        ) : (
+          <TouchableOpacity onPress={handleSelectDestination}>
+            <Box
+              padding={"l"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              borderWidth={0.5}
+              borderRadius={"card"}
+              m={"s"}
+            >
+              <DisplayText variant={"bodyBold"} color={"textAccent"}>
+                {t("Accounts.chooseAccount")}
+              </DisplayText>
+            </Box>
+          </TouchableOpacity>
+        )}
       </Box>
       <Box
         backgroundColor={"background"}
@@ -102,10 +158,17 @@ const AccountTransfer = () => {
         <DisplayText variant={"subTitleBold"} color={"textAccent"}>
           {t("Transactions.amount")}
         </DisplayText>
-        <NumericField onChangeText={() => {}} />
+        <NumericField value={amount} onChangeText={setAmount} />
       </Box>
       <Box margin={"m"}>
-        <Button backgroundColor="carrot" onPress={() => {}}>
+        <Button
+          backgroundColor="carrot"
+          loading={isLoading}
+          onPress={handleTransfer}
+          disabled={
+            !sourceAccount || !destinationAccount || !amount || isLoading
+          }
+        >
           {t("Actions.transfer")}
         </Button>
       </Box>
