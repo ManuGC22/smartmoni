@@ -32,12 +32,17 @@
     "date": "Fecha",
     "type": "Tipo de Transacción",
     "minAmount": "Monto Mínimo",
+    "amount": "Monto",
     "from": "Desde",
     "to": "Hacia",
     "last7Days": "Hace 7 días",
     "last30Days": "Hace 30 días",
     "last90Days": "Hace 90 días",
     "deposits": "Depósitos",
-    "withdrawals": "Retiros"
+    "withdrawals": "Retiros",
+    "insufficientFunds": "Fondos insuficientes para realizar la transferencia",
+    "moreThanZero": "El monto debe ser mayor que cero",
+    "transferSuccess": "Transferencia realizada con exito",
+    "transferError": "Error al realizar la transferencia"
   }
 }
