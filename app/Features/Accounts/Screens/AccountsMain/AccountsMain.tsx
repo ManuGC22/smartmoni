@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { DisplayText } from "@/UI/Atoms";
 import { IAccount } from "@/Types";
 import { HeaderContainer, InfoBlock, TitleBar } from "@/UI/Molecules";
@@ -7,6 +7,7 @@ import { AccountsList } from "../../Components";
 import { Routes } from "@/Routes";
 import { useRouter } from "expo-router";
 import { AccountAPI } from "@/API";
+import { useFocusEffect } from "@react-navigation/native";
 
 const AccountsMain = () => {
   const { t } = I18nContext.useLocalization();
@@ -14,21 +15,22 @@ const AccountsMain = () => {
   const router = useRouter();
   const [accounts, setAccounts] = useState<IAccount[]>([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchAccounts = async () => {
-      try {
-        const data = await AccountAPI.getAll();
-        setAccounts(data);
-      } catch (error) {
-        console.error("Error al obtener cuentas:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAccounts();
+  const fetchAccounts = useCallback(async () => {
+    try {
+      const data = await AccountAPI.getAll();
+      setAccounts(data);
+    } catch (error) {
+      console.error("Error al obtener cuentas:", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchAccounts();
+    }, [fetchAccounts]),
+  );
 
   const accountsTotal = useMemo(
     () => accounts.reduce((total, account) => total + account.balance, 0),

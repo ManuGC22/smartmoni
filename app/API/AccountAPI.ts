@@ -21,6 +21,14 @@ const AccountAPI = {
     }
     return AccountModel(response.data);
   },
+  update: async (
+    id: string,
+    accountData: Partial<IAccount>,
+  ): Promise<IAccount> => {
+    await delay(DELAY_TIME);
+    const response = await ServiceAPI.patch(`/accounts/${id}`, accountData);
+    return AccountModel(response.data);
+  },
 };
 
 export default AccountAPI;
