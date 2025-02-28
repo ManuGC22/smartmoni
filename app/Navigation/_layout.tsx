@@ -8,6 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Theme, RestyledTheme } from "@/Core/Theme";
 import { SnackbarContext, I18nContext, AuthContext } from "@/Contexts";
 import { Slot } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,18 +28,20 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider theme={RestyledTheme}>
-        <I18nContext.Provider>
-          <PaperProvider theme={Theme}>
-            <AuthContext.Provider>
-              <SnackbarContext.Provider>
-                <Slot />
-              </SnackbarContext.Provider>
-            </AuthContext.Provider>
-          </PaperProvider>
-        </I18nContext.Provider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ThemeProvider theme={RestyledTheme}>
+          <I18nContext.Provider>
+            <PaperProvider theme={Theme}>
+              <AuthContext.Provider>
+                <SnackbarContext.Provider>
+                  <Slot />
+                </SnackbarContext.Provider>
+              </AuthContext.Provider>
+            </PaperProvider>
+          </I18nContext.Provider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
