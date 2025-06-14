@@ -8,11 +8,13 @@ WebBrowser.maybeCompleteAuthSession();
 
 // Configure GoogleSignin
 GoogleSignin.configure({
-  webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+  webClientId:
+    "707983838690-ubrfgq9g071gmine5vg6hi8g2vqcetgh.apps.googleusercontent.com",
+  scopes: ["profile", "email"],
   offlineAccess: true,
   forceCodeForRefreshToken: false,
-  iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
+  iosClientId:
+    "707983838690-nr7qgh2if45mkf545d1sa870g2i6es1k.apps.googleusercontent.com",
   profileImageSize: 120,
 });
 
