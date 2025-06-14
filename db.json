@@ -4,7 +4,7 @@
       "id": "acc-001",
       "type": "SAVINGS",
       "number": "1001234",
-      "balance": 29995,
+      "balance": 29495,
       "isActive": true,
       "currency": "DOP",
       "createdAt": "2024-12-15T10:30:00Z"
@@ -22,7 +22,7 @@
       "id": "acc-003",
       "type": "CHECKING",
       "number": "2001234",
-      "balance": 14000,
+      "balance": 14500,
       "isActive": true,
       "currency": "DOP",
       "createdAt": "2024-11-20T09:15:00Z"
@@ -185,6 +185,16 @@
       "status": "COMPLETED",
       "fromAccountNumber": "1001234",
       "toAccountNumber": "1005678",
+      "description": "Transferencia entre cuentas"
+    },
+    {
+      "id": "631c",
+      "amount": 500,
+      "currency": "DOP",
+      "createdAt": "2025-06-14T21:49:33.164Z",
+      "status": "COMPLETED",
+      "fromAccountNumber": "1001234",
+      "toAccountNumber": "2001234",
       "description": "Transferencia entre cuentas"
     }
   ]
